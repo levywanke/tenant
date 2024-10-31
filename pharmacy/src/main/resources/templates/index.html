@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <script>
+        async function fetchProducts() {
+            const tenantId = document.getElementById("tenant-id").value;
+            if (!tenantId) {
+                alert("Please enter a Tenant ID");
+                return;
+            }
+
+            try {
+                const response = await fetch("http://localhost:8080/products", {
+                    method: "GET",
+                    headers: {
+                        "X-Tenant-ID": tenantId,
+                        "Content-Type": "application/json"
+                    }
+                });
+
+                if (!response.ok) {
+                    console.error("Failed to fetch products:", response.statusText);
+                    alert("Failed to load products.");
+                    return;
+                }
+
+                const products = await response.json();
+                displayProducts(products);
+
+            } catch (error) {
+                console.error("Error fetching products:", error);
+                alert("Error fetching products. Check console for details.");
+            }
+        }
+
+        function displayProducts(products) {
+            const productContainer = document.getElementById("product-container");
+            productContainer.innerHTML = "";
+
+            if (products.length === 0) {
+                productContainer.textContent = "No products found for this tenant.";
+                return;
+            }
+
+            products.forEach(product => {
+                const productItem = document.createElement("div");
+                productItem.textContent = `ID: ${product.id}, Name: ${product.name}, Price: ${product.price}`;
+                productContainer.appendChild(productItem);
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Tenant Products</h1>
+    <label for="tenant-id">Tenant ID:</label>
+    <input type="text" id="tenant-id" placeholder="e.g., tenant_a">
+    <button onclick="fetchProducts()">Fetch Products</button>
+    <div id="product-container"></div>
+</body>
+</html>
