@@ -56,7 +56,7 @@ public class TenantDatabaseConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
-        em.setPackagesToScan("com.medicinabackend.pharmacy.domain");
+        em.setPackagesToScan("com.backend.pharmacy.domain");
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 
 

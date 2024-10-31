@@ -3,13 +3,14 @@ package com.backend.pharmacy.service;
 import org.springframework.stereotype.Service;
 
 import com.backend.pharmacy.domain.Product;
-import com.backend.pharmacy.repository.ProductRepository;
+import com.backend.pharmacy.repository.*;
 import com.backend.pharmacy.tenant.TenantIdentifierResolver;
 
 import java.util.List;
 
 @Service
 public class ProductService {
+  
     private final ProductRepository productRepository;
     private final TenantIdentifierResolver tenantIdentifierResolver; 
 

@@ -1,4 +1,4 @@
-//package com.medicinabackend.pharmacy;
+//package com.backend.pharmacy;
 //
 //import org.junit.jupiter.api.Test;
 //import org.springframework.boot.test.context.SpringBootTest;
