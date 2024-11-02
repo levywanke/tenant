@@ -71,7 +71,7 @@ public class DataSourceConfig {
         Map<String, Object> properties = new HashMap<>();
         properties.put("hibernate.show_sql", true);
         properties.put("hibernate.hbm2ddl.auto", "update");
-        properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+        properties.put("hibernate.dialect", "org.hibernate.dialect.MariaDBDialect");
 
         em.setJpaPropertyMap(properties);
 
