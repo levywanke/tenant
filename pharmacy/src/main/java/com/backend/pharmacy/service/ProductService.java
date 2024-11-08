@@ -3,7 +3,7 @@ package com.backend.pharmacy.service;
 import org.springframework.stereotype.Service;
 
 import com.backend.pharmacy.domain.Product;
-import com.backend.pharmacy.repository.*;
+import com.backend.pharmacy.repository.ProductRepository;
 import com.backend.pharmacy.tenant.TenantIdentifierResolver;
 
 import java.util.List;
@@ -20,13 +20,12 @@ public class ProductService {
     }
 
     public List<Product> getAllProducts() {
-        String tenantId = tenantIdentifierResolver.resolveTenant(); 
-        //System.out.println("Fetching products for Tenant ID: " + tenantId);  
+        String tenantId = tenantIdentifierResolver.resolveCurrentTenantIdentifier();  // Updated method
         return productRepository.findByTenantId(tenantId); 
     }
 
     public Product createProduct(Product product) {
-        String tenantId = tenantIdentifierResolver.resolveTenant(); 
+        String tenantId = tenantIdentifierResolver.resolveCurrentTenantIdentifier();  // Updated method
         product.setTenantId(tenantId); 
         return productRepository.save(product);
     }

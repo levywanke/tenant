@@ -1,15 +1,20 @@
 package com.backend.pharmacy.tenant;
 
+import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
 import org.springframework.stereotype.Component;
-
+import lombok.Data;
 @Component
-public class TenantIdentifierResolver {
-    public String resolveTenant() {
+@Data
+public class TenantIdentifierResolver implements CurrentTenantIdentifierResolver {
+
+    @Override
+    public String resolveCurrentTenantIdentifier() {
         String tenantId = TenantContext.getTenantId();
-        if (tenantId == null) {
-            throw new IllegalStateException("No tenant ID resolved. Ensure that the tenant context is set.");
-        }
-       // System.out.println("Resolved Tenant ID: " + tenantId);
-        return tenantId;  
+        return (tenantId != null) ? tenantId : "default";  
+    }
+
+    @Override
+    public boolean validateExistingCurrentSessions() {
+        return true;
     }
 }
